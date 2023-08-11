@@ -29,7 +29,7 @@ public class OperatorReader {
 
 
     public Integer getOperatorPrecedence(String operatorSymbol) {
-        if (operatorSymbol == "cos" || operatorSymbol == "sin") {
+        if ("cos".equals(operatorSymbol) ||"sin".equals(operatorSymbol)) {
             return 3;
         }
         return this.binaryOperators.stream()
