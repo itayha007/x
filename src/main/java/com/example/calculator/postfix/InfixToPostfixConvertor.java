@@ -14,6 +14,7 @@ public class InfixToPostfixConvertor {
 
 
     public List<String> infixToPostfix(String infix) {
+        infix = preprocessNegativeStart(infix);
         List<String> postfix = new ArrayList<>();
         Stack<String> stack = new Stack<>();
         boolean lastTokenWasOperator = true;
@@ -39,6 +40,7 @@ public class InfixToPostfixConvertor {
         }
 
         processRemainingOperators(stack, postfix);
+
 
         return postfix;
     }
@@ -91,5 +93,13 @@ public class InfixToPostfixConvertor {
             postfix.add(stack.pop());
         }
     }
+
+    private String preprocessNegativeStart(String infix) {
+        if (infix.charAt(0) == '-') {
+            return '0' + infix;
+        }
+        return infix;
+    }
+
 
 }

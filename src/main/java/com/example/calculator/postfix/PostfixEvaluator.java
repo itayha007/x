@@ -44,9 +44,15 @@ public class PostfixEvaluator {
 
     private void processUnaryOperator(String token, Stack<Double> stack) {
         UnaryOperator<Double> unaryOperator = this.operatorUtils.getUnaryOperator(token);
+
+        if (stack.isEmpty()) {
+            throw new RuntimeException("Invalid expression: Missing operand for unary operator " + token);
+        }
+
         Double operand = stack.pop();
         stack.push(unaryOperator.apply(operand));
     }
+
 
     private void processBinaryOperator(String token, Stack<Double> stack) {
         Double operand2 = stack.pop();
