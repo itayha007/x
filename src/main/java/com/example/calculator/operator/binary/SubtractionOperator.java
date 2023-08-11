@@ -1,7 +1,5 @@
 package com.example.calculator.operator.binary;
 
-import com.example.calculator.operator.binary.Operator;
-
 public class SubtractionOperator implements Operator<Double> {
 
     @Override

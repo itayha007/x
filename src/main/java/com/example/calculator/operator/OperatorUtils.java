@@ -1,4 +1,4 @@
-package com.example.calculator;
+package com.example.calculator.operator;
 
 import com.example.calculator.operator.binary.Operator;
 import com.example.calculator.operator.unary.UnaryOperator;
@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class OperatorReader {
+public class OperatorUtils {
 
     private final List<Operator<Double>> binaryOperators;
 
@@ -29,7 +29,7 @@ public class OperatorReader {
 
 
     public Integer getOperatorPrecedence(String operatorSymbol) {
-        if ("cos".equals(operatorSymbol) ||"sin".equals(operatorSymbol)) {
+        if ("cos".equals(operatorSymbol) || "sin".equals(operatorSymbol)) {
             return 3;
         }
         return this.binaryOperators.stream()
@@ -49,5 +49,15 @@ public class OperatorReader {
     public boolean isValidUnaryOperator(String operatorSymbol) {
         return this.unaryOperators.stream()
                 .anyMatch(operator -> operator.getSymbol().equals(operatorSymbol));
+    }
+
+    public Double applyOperator(String operator, Double operand1, Double operand2) {
+        if (isValidUnaryOperator(operator) && operand2 == null) {
+            UnaryOperator<Double> unaryOperator = getUnaryOperator(operator);
+            return unaryOperator.apply(operand1);
+        } else {
+            Operator<Double> op = getBinaryOperator(operator);
+            return op.calculate(operand1, operand2);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.calculator.input;
+package com.example.calculator.output;
 
 import java.util.Optional;
 

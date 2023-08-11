@@ -1,6 +1,6 @@
 package com.example.calculator.operator.unary;
 
-public class SinOperator implements UnaryOperator<Double>{
+public class SinOperator implements UnaryOperator<Double> {
 
 
     @Override
@@ -17,7 +17,6 @@ public class SinOperator implements UnaryOperator<Double>{
     public Integer getPrecedence() {
         return 3;
     }
-
 
 
 }
