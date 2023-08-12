@@ -1,7 +1,12 @@
 package com.example.calculator.output;
 
+import com.example.calculator.Calculator;
+import com.example.calculator.input.InputHandler;
+
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class FileOutputHandler implements OutputHandler {
@@ -31,4 +36,21 @@ public class FileOutputHandler implements OutputHandler {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void processCalculations(InputHandler inputHandler, Calculator calculator) {
+        List<String> expressions = inputHandler.readCalculations();
+
+        FileOutputHandler outputHandler = new FileOutputHandler(outputFilePath);
+        expressions.stream()
+                .map(expression -> {
+                    Optional<Double> result = calculator.calculate(Collections.singletonList(expression));
+                    outputHandler.setCurrentExpression(expression);
+                    return result;
+                })
+                .forEach(outputHandler::presentResult);
+
+    }
+
+
 }

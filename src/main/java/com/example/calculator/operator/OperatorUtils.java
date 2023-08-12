@@ -29,10 +29,16 @@ public class OperatorUtils {
 
 
     public Integer getOperatorPrecedence(String operatorSymbol) {
-        if ("cos".equals(operatorSymbol) || "sin".equals(operatorSymbol)) {
-            return 3;
+        UnaryOperator<Double> matchingUnaryOperator = unaryOperators.stream()
+                .filter(operator -> operator.getSymbol().equals(operatorSymbol))
+                .findFirst()
+                .orElse(null);
+
+        if (matchingUnaryOperator != null) {
+            return matchingUnaryOperator.getPrecedence();
         }
-        return this.binaryOperators.stream()
+
+        return binaryOperators.stream()
                 .filter(operator -> operator.getSymbol().equals(operatorSymbol))
                 .mapToInt(Operator::getPrecedence)
                 .findFirst()
